@@ -1,13 +1,13 @@
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
 /* --- Extra - Neon Circuit - waybar style ---*/
 
-@define-color foreground #F9F9F9;
+@define-color foreground @orange;
 @define-color background #171717;
 @define-color background-alt rgba(23,23,23,0.25);
 @define-color cursor #AAAAAA;
 
 @define-color color0 #3E3E3E;
-@define-color color1 #181818;
+@define-color color1 #E59400;
 @define-color color2 #454545;
 @define-color color3 #505050;
 @define-color color4 #6C6C6C;
@@ -18,10 +18,11 @@
 @define-color color9 #202020;
 @define-color color10 #5C5C5C;
 @define-color color11 #6A6A6A;
-@define-color color12 #909090;
-@define-color color13 #A1A1A1;
-@define-color color14 #EDEDED;
+@define-color color12 @orange;
+@define-color color13 @orange;
+@define-color color14 @orange;
 @define-color color15 #EEEEEE;
+@define-color orange #E59400;
 
 @define-color bar-bg @background-alt;
 @define-color main-bg @background;
