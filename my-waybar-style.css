@@ -1,3 +1,4 @@
+/* ~/.config/hypr/my-waybar-style.css 10 Nov at 07:54:19 AM */
 /* ----------- 💫 https://github.com/JaKooLit 💫 -------- */
 /* --- Extra - Neon Circuit - waybar style ---*/
 
@@ -35,7 +36,7 @@
 * {
     border: none;
     border-radius: 0px;
-    font-family: "JetBrainsMono Nerd Font";
+    font-family: "RobotoMono Nerd Font Mono";
     font-weight: bold;
 	min-height: 0;
     /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */

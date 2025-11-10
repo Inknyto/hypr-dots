@@ -1,4 +1,5 @@
 #!/bin/bash
+# ~/.config/hypr/scripts/Dropterminal.sh 09 Nov at 08:58:50 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 #
 # Made and brought to by Kiran George
@@ -15,8 +16,8 @@ SPECIAL_WS="special:scratchpad"
 ADDR_FILE="/tmp/dropdown_terminal_addr"
 
 # Dropdown size and position configuration (percentages)
-WIDTH_PERCENT=50  # Width as percentage of screen width
-HEIGHT_PERCENT=50 # Height as percentage of screen height
+WIDTH_PERCENT=70  # Width as percentage of screen width
+HEIGHT_PERCENT=60 # Height as percentage of screen height
 Y_PERCENT=5       # Y position as percentage from top (X is auto-centered)
 
 # Animation settings
