@@ -1,8 +1,6 @@
 #!/bin/bash
-# ~/.config/hypr/scripts/Sounds.sh 11 Nov at 02:53:14 PM
-# /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
-# This script is used to play system sounds.
-# Script is used by Volume.Sh and ScreenShots.sh 
+# ~/.config/hypr/scripts/Sounds.sh 13 Nov at 11:43:39 AM
+# Enhanced with complete battery sound support
 
 theme="freedesktop" # Set the theme for the system sounds.
 mute=false          # Set to true to mute the system sounds.
@@ -10,6 +8,7 @@ mute=false          # Set to true to mute the system sounds.
 # Mute individual sounds here.
 muteScreenshots=false
 muteVolume=false
+muteBattery=false
 
 # Exit if the system sounds are muted.
 if [[ "$mute" = true ]]; then
@@ -33,15 +32,35 @@ elif [[ "$1" == "--error" ]]; then
     fi
     soundoption="dialog-error.*"
 elif [[ "$1" == "--charging" ]]; then
+    if [[ "$muteBattery" = true ]]; then
+        exit 0
+    fi
     sound_file="/usr/share/sounds/freedesktop/stereo/power-plug.oga"
 elif [[ "$1" == "--discharging" ]]; then
+    if [[ "$muteBattery" = true ]]; then
+        exit 0
+    fi
     sound_file="/usr/share/sounds/freedesktop/stereo/power-unplug.oga"
 elif [[ "$1" == "--low-battery" ]]; then
-    # sound_file="/usr/share/sounds/freedesktop/stereo/battery-low.oga"
-    sound_file="/usr/share/sounds/oxygen/stereo/battery-low.ogg"
-    
+    if [[ "$muteBattery" = true ]]; then
+        exit 0
+    fi
+    # Use Ocean theme for low battery (you can change this)
+    sound_file="/usr/share/sounds/ocean/stereo/battery-low.oga"
+elif [[ "$1" == "--full-battery" ]]; then
+    if [[ "$muteBattery" = true ]]; then
+        exit 0
+    fi
+    # Use Ocean theme for full battery
+    sound_file="/usr/share/sounds/ocean/stereo/battery-full.oga"
+elif [[ "$1" == "--critical-battery" ]]; then
+    if [[ "$muteBattery" = true ]]; then
+        exit 0
+    fi
+    # Use Ocean theme for critical battery
+    sound_file="/usr/share/sounds/ocean/stereo/dialog-error-critical.oga"
 else
-    echo -e "Available sounds: --screenshot, --volume, --error, --charging, --discharging, --low-battery"
+    echo -e "Available sounds: --screenshot, --volume, --error, --charging, --discharging, --low-battery, --full-battery, --critical-battery"
     exit 0
 fi
 
@@ -86,7 +105,7 @@ fi
 
 # pipewire priority, fallback pulseaudio
 if [ -f "$sound_file" ]; then
-    pw-play "$sound_file" || pa-play "$sound_file"
+    pw-play "$sound_file" || paplay "$sound_file"
 else
     echo "Error: Sound file not found at $sound_file."
     exit 1
