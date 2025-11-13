@@ -1,0 +1,1 @@
+check if there will not be any conflict when the battery is low also.
