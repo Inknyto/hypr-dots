@@ -1,4 +1,5 @@
 #!/bin/bash
+# ~/.config/hypr/scripts/Sounds.sh 11 Nov at 02:53:14 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # This script is used to play system sounds.
 # Script is used by Volume.Sh and ScreenShots.sh 
@@ -31,8 +32,16 @@ elif [[ "$1" == "--error" ]]; then
         exit 0
     fi
     soundoption="dialog-error.*"
+elif [[ "$1" == "--charging" ]]; then
+    sound_file="/usr/share/sounds/freedesktop/stereo/power-plug.oga"
+elif [[ "$1" == "--discharging" ]]; then
+    sound_file="/usr/share/sounds/freedesktop/stereo/power-unplug.oga"
+elif [[ "$1" == "--low-battery" ]]; then
+    # sound_file="/usr/share/sounds/freedesktop/stereo/battery-low.oga"
+    sound_file="/usr/share/sounds/oxygen/stereo/battery-low.ogg"
+    
 else
-    echo -e "Available sounds: --screenshot, --volume, --error"
+    echo -e "Available sounds: --screenshot, --volume, --error, --charging, --discharging, --low-battery"
     exit 0
 fi
 
@@ -58,20 +67,27 @@ iTheme=$(cat "$sDIR/index.theme" | grep -i "inherits" | cut -d "=" -f 2)
 iDIR="$sDIR/../$iTheme"
 
 # Find the sound file and play it.
-sound_file=$(find -L $sDIR/stereo -name "$soundoption" -print -quit)
-if ! test -f "$sound_file"; then
-    sound_file=$(find -L $iDIR/stereo -name "$soundoption" -print -quit)
+if [ -z "$sound_file" ]; then
+    sound_file=$(find -L $sDIR/stereo -name "$soundoption" -print -quit)
     if ! test -f "$sound_file"; then
-        sound_file=$(find -L $userDIR/$defaultTheme/stereo -name "$soundoption" -print -quit)
+        sound_file=$(find -L $iDIR/stereo -name "$soundoption" -print -quit)
         if ! test -f "$sound_file"; then
-            sound_file=$(find -L $systemDIR/$defaultTheme/stereo -name "$soundoption" -print -quit)
+            sound_file=$(find -L $userDIR/$defaultTheme/stereo -name "$soundoption" -print -quit)
             if ! test -f "$sound_file"; then
-                echo "Error: Sound file not found."
-                exit 1
+                sound_file=$(find -L $systemDIR/$defaultTheme/stereo -name "$soundoption" -print -quit)
+                if ! test -f "$sound_file"; then
+                    echo "Error: Sound file not found for option $soundoption."
+                    exit 1
+                fi
             fi
         fi
     fi
 fi
 
 # pipewire priority, fallback pulseaudio
-pw-play "$sound_file" || pa-play "$sound_file"
+if [ -f "$sound_file" ]; then
+    pw-play "$sound_file" || pa-play "$sound_file"
+else
+    echo "Error: Sound file not found at $sound_file."
+    exit 1
+fi

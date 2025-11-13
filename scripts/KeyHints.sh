@@ -1,4 +1,5 @@
 #!/bin/bash
+# ~/.config/hypr/scripts/KeyHints.sh 11 Nov at 08:31:46 AM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
 # GDK BACKEND. Change to either wayland or x11 if having issues
@@ -25,6 +26,11 @@ GDK_BACKEND=$BACKEND yad \
     --timeout-indicator=bottom \
 "ESC" "close this app" "" " = " "SUPER KEY (Windows Key Button)" "(SUPER KEY)" \
 " SHIFT K" "Searchable Keybinds" "(Search all Keybinds via rofi)" \
+" R" "Open Wallix" "(connect directly to OFMS wallix)" \
+" H" "Focus left window" "" \
+" J" "Focus down window" "" \
+" K" "Focus upper window" "" \
+" L" "Focus right window" "" \
 " SHIFT E" "KooL Hyprland Settings Menu" "" \
 "" "" "" \
 " enter" "Terminal" "(kitty)" \
