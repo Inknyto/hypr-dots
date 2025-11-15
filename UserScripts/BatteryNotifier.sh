@@ -6,9 +6,11 @@
 LOW_BAT=20
 CRITICAL_BAT=10
 STATE_FILE="$HOME/.config/hypr/UserScripts/.battery_state"
+CRITICAL_NOTIF_ID_FILE="$HOME/.config/hypr/UserScripts/.critical_notif_id" # New file to store critical notification ID
 
 # Initialize
 [ ! -f "$STATE_FILE" ] && echo "UNKNOWN" > "$STATE_FILE"
+[ ! -f "$CRITICAL_NOTIF_ID_FILE" ] && echo "" > "$CRITICAL_NOTIF_ID_FILE" # Initialize critical notification ID file
 
 show_notification() {
     local message="$1" urgency="$2" timeout="$3"
@@ -33,6 +35,14 @@ handle_battery_event() {
     
     # Charging state
     if [ "$status" == "Charging" ] && [ "$last_state" != "CHARGING" ]; then
+        # Close critical notification if it exists
+        if [ -f "$CRITICAL_NOTIF_ID_FILE" ]; then
+            local critical_id=$(cat "$CRITICAL_NOTIF_ID_FILE")
+            if [ -n "$critical_id" ]; then
+                notify-send -c "$critical_id" # Close the critical notification
+                echo "" > "$CRITICAL_NOTIF_ID_FILE" # Clear the ID
+            fi
+        fi
         "$HOME/.config/hypr/scripts/Sounds.sh" --charging
         show_notification "⚡ Charging started\nBattery: $capacity%" "low" 3000
         echo "CHARGING" > "$STATE_FILE"
@@ -47,7 +57,9 @@ handle_battery_event() {
     elif [ "$status" == "Discharging" ] && [ "$capacity" -le "$LOW_BAT" ] && [ "$last_state" != "LOW" ]; then
         if [ "$capacity" -le "$CRITICAL_BAT" ]; then
             "$HOME/.config/hypr/scripts/Sounds.sh" --critical-battery
-            show_notification "🚨 CRITICAL! $capacity% left!\nPlug in immediately!" "critical" 0
+            # Store the notification ID for critical battery
+            local notif_id=$(notify-send -u "critical" -t "0" "Battery Status" "🚨 CRITICAL! $capacity% left!\nPlug in immediately!" -p)
+            echo "$notif_id" > "$CRITICAL_NOTIF_ID_FILE"
         else
             "$HOME/.config/hypr/scripts/Sounds.sh" --low-battery
             show_notification "⚠️ Low battery: $capacity%\nConnect charger soon" "normal" 8000
