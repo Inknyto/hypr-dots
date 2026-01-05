@@ -1,4 +1,5 @@
 #!/bin/bash
+# ~/.config/hypr/scripts/Brightness.sh 05 Jan at 03:53:16 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script for Monitor backlights (if supported) using brightnessctl
 
@@ -43,7 +44,10 @@ change_brightness() {
     new=$((current + delta))
 
     # Clamp between 5 and 100
-    (( new < 5 )) && new=5
+    # (( new < 5 )) && new=5
+
+    # Clamp between 0 and 100
+    (( new < 0 )) && new=0
     (( new > 100 )) && new=100
 
     brightnessctl set "${new}%"
