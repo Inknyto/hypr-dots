@@ -1,5 +1,5 @@
 #!/bin/bash
-# ~/.config/hypr/scripts/KeyHints.sh 11 Nov at 08:31:46 AM
+# ~/.config/hypr/scripts/KeyHints.sh 22 Dec at 04:37:44 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
 # GDK BACKEND. Change to either wayland or x11 if having issues
@@ -36,6 +36,7 @@ GDK_BACKEND=$BACKEND yad \
 " enter" "Terminal" "(kitty)" \
 " SHIFT enter" "DropDown Terminal" " Q to close" \
 " B" "Launch Browser" "(Default browser)" \
+" T" "Launch Telegram" "(Telegram Desktop)" \
 " A" "Desktop Overview" "(AGS - if opted to install)" \
 " D" "Application Launcher" "(rofi-wayland)" \
 " E" "Open File Manager" "(Thunar)" \

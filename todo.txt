@@ -1,1 +1,2 @@
-check if there will not be any conflict when the battery is low also.
+check for active low battery notifications and close them all when battery is plugged.
+Remake the session saving logic: Savethe file each time a new window is opened.

@@ -1,4 +1,5 @@
 #!/bin/bash
+# ~/.config/hypr/initial-boot.sh 08 Jan at 07:37:57 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
 # A bash script designed to run only once dotfiles installed
 
