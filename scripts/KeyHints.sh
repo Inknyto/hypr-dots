@@ -1,5 +1,5 @@
 #!/bin/bash
-# ~/.config/hypr/scripts/KeyHints.sh 22 Dec at 04:37:44 PM
+# ~/.config/hypr/scripts/KeyHints.sh 16 Jan at 06:45:25 PM
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 
 # GDK BACKEND. Change to either wayland or x11 if having issues
